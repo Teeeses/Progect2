@@ -4,4 +4,4 @@
     android:layout_width="match_parent"
     android:layout_height="?actionBarSize"
     android:background="@color/PrimaryColor"
-    android:titleTextColor="@color/white"/>
+    android:titleTextColor="@color/white" />

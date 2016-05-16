@@ -15,14 +15,19 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return new TabFragment();    // Which Fragment should be dislpayed by the viewpager for the given position
-        // In my case we are showing up only one fragment in all the three tabs so we are
-        // not worrying about the position and just returning the TabFragment
+        switch (position) {
+            case 0:
+                return new OneActivity();
+            case 1:
+                return new TwoActivity();
+            default:
+                return null;
+        }
     }
 
     @Override
     public int getCount() {
-        return 3;           // As there are only 3 Tabs
+        return 2;
     }
 
 }

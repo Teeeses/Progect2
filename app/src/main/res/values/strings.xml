@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Transport</string>
+    <string name="payment_code">Код оплаты</string>
+    <string name="attach_card">Приложите карту к задней крышке</string>
+    <string name="enter_number1">Введите номер телефона пассажира</string>
+    <string name="enter_number2">для проведения оплаты</string>
 </resources>

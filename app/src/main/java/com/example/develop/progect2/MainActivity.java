@@ -19,6 +19,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     TabLayout.Tab tab1;
     TabLayout.Tab tab2;
+
+    private Button buttonPay;
 
 
     // list of NFC technologies detected:
@@ -57,15 +61,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         createElements();
         createTabs();
-        onNewIntent(getIntent());
+        //onNewIntent(getIntent());
     }
 
     private void createElements() {
+        buttonPay = (Button) findViewById(R.id.buttonPay);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setSupportActionBar(toolbar);
+
+        buttonPay.setOnClickListener(clickButtonPay);
     }
+
+    View.OnClickListener clickButtonPay = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
 
     private void createTabs() {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());

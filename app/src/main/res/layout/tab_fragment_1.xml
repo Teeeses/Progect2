@@ -11,7 +11,7 @@
         android:layout_marginRight="30dp"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        >
+        android:id="@+id/linearLayout">
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,6 +30,16 @@
             android:ems="10"
             android:id="@+id/editText"
             android:maxLines="1"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pay"
+            android:id="@+id/buttonPay"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/linearLayout"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal" />
 
         <TextView

@@ -21,11 +21,12 @@
             android:textSize="30sp"
             android:layout_gravity="center_horizontal" />
 
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
             android:layout_marginTop="20dp"
+            android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/editText"
             android:maxLines="1"
@@ -36,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="15sp"
             android:text="@string/enter_number1"
             android:layout_gravity="center_horizontal" />
 
@@ -43,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="15sp"
             android:text="@string/enter_number2"
             android:layout_gravity="center_horizontal" />
 

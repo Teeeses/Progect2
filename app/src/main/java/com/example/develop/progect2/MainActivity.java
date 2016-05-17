@@ -4,7 +4,6 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
-import android.nfc.Tag;
 import android.nfc.tech.IsoDep;
 import android.nfc.tech.MifareClassic;
 import android.nfc.tech.MifareUltralight;
@@ -20,16 +19,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.widget.TabHost;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.math.BigInteger;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Declaring All The Variables Needed
 
     private ActionBar actionBar;
     private TabLayout tabLayout;
@@ -100,37 +94,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void readTag(Intent intent)
-    {
-        PendingIntent mPendingIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-
-        NfcAdapter nfc_adapter=NfcAdapter.getDefaultAdapter(this);
-        IntentFilter ndef = new IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED);
-
-        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        byte[] tagId = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
-        showToast(byte2HexString(tag.getId()));
-    }
-
-
-    public String byte2HexString(byte[] bytes) {
-        String ret = "";
-        if (bytes != null) {
-            for (Byte b : bytes) {
-                ret += String.format("%02X", b.intValue() & 0xFF);
-            }
-        }
-        return ret;
-    }
-
-
     private void showToast(String t) {
-        Toast toast = Toast.makeText(this, t, Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(this, ("UID: " + t), Toast.LENGTH_SHORT);
         toast.show();
     }
-
-
 
     @Override
     protected void onResume() {

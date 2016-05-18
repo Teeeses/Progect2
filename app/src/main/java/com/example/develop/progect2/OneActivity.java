@@ -16,6 +16,8 @@ public class OneActivity extends Fragment {
     private Button buttonPay;
     private EditText textNumber;
 
+    public static final String BASE_URL = "http://api.prostor-sms.ru/messages/v2/send/";
+
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);

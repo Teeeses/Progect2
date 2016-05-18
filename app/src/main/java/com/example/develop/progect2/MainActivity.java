@@ -15,33 +15,28 @@ import android.nfc.tech.NfcV;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
 
-
-    private ActionBar actionBar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Toolbar toolbar;
     private ViewPagerAdapter viewPagerAdapter;
 
-    TabLayout.Tab tab1;
-    TabLayout.Tab tab2;
+    private TabLayout.Tab tab1;
+    private TabLayout.Tab tab2;
 
-    private Button buttonPay;
-
+    private NfcManager nfcManager;
 
     // list of NFC technologies detected:
-    private final String[][] techList = new String[][] {
-            new String[] {
+    private final String[][] techList = new String[][]{
+            new String[]{
                     NfcA.class.getName(),
                     NfcB.class.getName(),
                     NfcF.class.getName(),
@@ -52,34 +47,22 @@ public class MainActivity extends AppCompatActivity {
             }
     };
 
-
-    private String serialId = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        nfcManager = new NfcManager(this);
         createElements();
         createTabs();
-        //onNewIntent(getIntent());
     }
 
+
     private void createElements() {
-        buttonPay = (Button) findViewById(R.id.buttonPay);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setSupportActionBar(toolbar);
-
-        buttonPay.setOnClickListener(clickButtonPay);
     }
-
-    View.OnClickListener clickButtonPay = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-        }
-    };
 
     private void createTabs() {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -101,10 +84,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {}
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
         });
     }
 
@@ -114,48 +99,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
+            showToast(nfcManager.ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)));
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        // creating pending intent:
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-        // creating intent receiver for NFC events:
+        /*PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
         IntentFilter filter = new IntentFilter();
         filter.addAction(NfcAdapter.ACTION_TAG_DISCOVERED);
         filter.addAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
         filter.addAction(NfcAdapter.ACTION_TECH_DISCOVERED);
-        // enabling foreground dispatch for getting intent from NFC event:
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[]{filter}, this.techList);
+        nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[]{filter}, this.techList);*/
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        // disabling foreground dispatch:
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         nfcAdapter.disableForegroundDispatch(this);
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
-            showToast(ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)));
-        }
-    }
-
-    private String ByteArrayToHexString(byte [] inarray) {
-        int i, j, in;
-        String [] hex = {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"};
-        String out= "";
-
-        for(j = 0 ; j < inarray.length ; ++j)
-        {
-            in = (int) inarray[j] & 0xff;
-            i = (in >> 4) & 0x0f;
-            out += hex[i];
-            i = in & 0x0f;
-            out += hex[i];
-        }
-        return out;
+    protected void onStop() {
+        super.onStop();
     }
 }

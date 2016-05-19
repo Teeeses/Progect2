@@ -5,5 +5,5 @@
     <string name="enter_number1">Введите номер телефона пассажира</string>
     <string name="enter_number2">для проведения оплаты</string>
     <string name="pay">Оплатить</string>
-    <string name="phone">+7</string>
+    <string name="input_phone">Введите телефон</string>
 </resources>

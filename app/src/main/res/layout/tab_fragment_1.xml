@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:mask="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -18,20 +18,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/payment_code"
+            android:text="@string/input_phone"
             android:textSize="30sp"
             android:layout_gravity="center_horizontal" />
 
 
-        <EditText
+        <com.github.pinball83.maskededittext.MaskedEditText
+            android:id="@+id/maskedEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:inputType="numberDecimal"
-            android:ems="10"
-            android:id="@+id/editText"
-            android:maxLines="1"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:inputType="number"
+            app:mask="+7(***) *** ** - **"
+            app:notMaskedSymbol="*"
+        />
 
         <Button
             android:layout_width="wrap_content"

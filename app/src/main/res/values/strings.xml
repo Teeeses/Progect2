@@ -4,6 +4,9 @@
     <string name="attach_card">Приложите карту к задней крышке</string>
     <string name="enter_number1">Введите номер телефона пассажира</string>
     <string name="enter_number2">для проведения оплаты</string>
+    <string name="input_correct_phone">Некоректный номер</string>
+    <string name="closes_in">Закроется через</string>
     <string name="pay">Оплатить</string>
+    <string name="ok">Ок</string>
     <string name="input_phone">Введите телефон</string>
 </resources>

@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -28,8 +29,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
             android:inputType="number"
-            app:mask="+7(***) *** ** - **"
+            app:mask="+7(***) *** - ** - **"
             app:notMaskedSymbol="*"
         />
 
@@ -39,8 +41,6 @@
             android:text="@string/pay"
             android:id="@+id/buttonPay"
             android:layout_marginTop="20dp"
-            android:layout_below="@+id/linearLayout"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal" />
 
         <TextView

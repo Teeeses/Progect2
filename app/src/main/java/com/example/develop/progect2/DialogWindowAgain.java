@@ -3,7 +3,10 @@ package com.example.develop.progect2;
 import android.app.Dialog;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +27,7 @@ public class DialogWindowAgain {
         this.phone = phone;
         init();
     }
+
 
     private void init() {
         LayoutInflater inflater = LayoutInflater.from(activity);
@@ -52,5 +56,9 @@ public class DialogWindowAgain {
             dialog.dismiss();
         }
     };
+
+    public Dialog getDialog() {
+        return dialog;
+    }
 
 }

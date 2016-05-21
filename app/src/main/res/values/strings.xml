@@ -9,10 +9,11 @@
     <string name="input_phone">Введите телефон</string>
 
     <!-- Dialog -->
+    <string name="close">Закрыть</string>
     <string name="input_correct_phone">Неверный номер</string>
     <string name="successful_payment">Оплата прошла успешно</string>
     <string name="insufficient_cash">Недостаточно средств</string>
-    <string name="want_pay_again">Хотите оплатить еще однеу поездку?</string>
+    <string name="want_pay_again">Хотите оплатить еще одну поездку?</string>
     <string name="check_balance">Проверьте баланс карты или попробуйте другой способ оплаты</string>
     <string name="confirm">Подтвердить</string>
     <string name="closes_in">Закроется через</string>

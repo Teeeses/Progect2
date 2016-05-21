@@ -1,12 +1,21 @@
 <resources>
+
     <string name="app_name">Transport</string>
-    <string name="payment_code">Код оплаты</string>
+
+    <!-- identification -->
     <string name="attach_card">Приложите карту к задней крышке</string>
-    <string name="enter_number1">Введите номер телефона пассажира</string>
-    <string name="enter_number2">для проведения оплаты</string>
-    <string name="input_correct_phone">Некоректный номер</string>
-    <string name="closes_in">Закроется через</string>
+    <string name="enter_number1">Введите номер телефона пассажира для проведения оплаты</string>
     <string name="pay">Оплатить</string>
-    <string name="ok">Ок</string>
     <string name="input_phone">Введите телефон</string>
+
+    <!-- Dialog -->
+    <string name="input_correct_phone">Неверный номер</string>
+    <string name="successful_payment">Оплата прошла успешно</string>
+    <string name="insufficient_cash">Недостаточно средств</string>
+    <string name="want_pay_again">Хотите оплатить еще однеу поездку?</string>
+    <string name="check_balance">Проверьте баланс карты или попробуйте другой способ оплаты</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="closes_in">Закроется через</string>
+    <string name="ok">Ок</string>
+
 </resources>

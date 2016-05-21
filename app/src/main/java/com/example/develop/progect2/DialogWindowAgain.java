@@ -11,20 +11,23 @@ import android.widget.Button;
 
 
 
-public class DialogWindow {
+public class DialogWindowAgain {
 
     private MainActivity activity;
     private Dialog dialog;
     private Button buttonOk;
 
-    public DialogWindow(MainActivity activity, XmlResourceParser res) {
+    private String  phone;
+
+    public DialogWindowAgain(MainActivity activity, String phone) {
         this.activity = activity;
-        init(res);
+        this.phone = phone;
+        init();
     }
 
-    private void init(XmlResourceParser res) {
+    private void init() {
         LayoutInflater inflater = LayoutInflater.from(activity);
-        View layout = inflater.inflate(res, null);
+        View layout = inflater.inflate(R.layout.dialog_pay_again, null);
         layout.setPadding(20, 20, 20, 20);
         buttonOk = (Button) layout.findViewById(R.id.buttonOk);
 
@@ -44,6 +47,8 @@ public class DialogWindow {
     View.OnClickListener clickButtonOk = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            /*AsyncRequest asyncTask = new AsyncRequest(phone);
+            asyncTask.execute();*/
             dialog.dismiss();
         }
     };

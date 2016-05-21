@@ -1,15 +1,9 @@
 package com.example.develop.progect2;
 
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
-import android.nfc.tech.IsoDep;
-import android.nfc.tech.MifareClassic;
-import android.nfc.tech.MifareUltralight;
-import android.nfc.tech.Ndef;
-import android.nfc.tech.NfcA;
-import android.nfc.tech.NfcB;
-import android.nfc.tech.NfcF;
-import android.nfc.tech.NfcV;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -30,25 +24,15 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout.Tab tab2;
 
     private NfcManager nfcManager;
+    private Cards cards;
 
-    // list of NFC technologies detected:
-    private final String[][] techList = new String[][]{
-            new String[]{
-                    NfcA.class.getName(),
-                    NfcB.class.getName(),
-                    NfcF.class.getName(),
-                    NfcV.class.getName(),
-                    IsoDep.class.getName(),
-                    MifareClassic.class.getName(),
-                    MifareUltralight.class.getName(), Ndef.class.getName()
-            }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         nfcManager = new NfcManager(this);
+        cards = new Cards();
         createElements();
         createTabs();
     }
@@ -99,31 +83,46 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
-            showToast(nfcManager.ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID)));
+            try {
+                String tag = nfcManager.ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
+                if (cards.Compare(tag)) {
+                    if (cards.compareTagAndLastTag(tag)) {
+                        DialogWindowAgain dialog = new DialogWindowAgain(this, cards.getPhone());
+                        dialog.showDialog();
+                    } else {
+                        //cards.sendSMS();
+                        DialogWindow dialog = new DialogWindow(this, getResources().getLayout(R.layout.dialog_cash_ok));
+                        dialog.showDialog();
+                        cards.setLastPayment(tag);
+                    }
+                }
+                showToast(tag);
+            } catch (Exception e) {
+                showToast(e.toString());
+            }
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        /*PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
         IntentFilter filter = new IntentFilter();
         filter.addAction(NfcAdapter.ACTION_TAG_DISCOVERED);
         filter.addAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
         filter.addAction(NfcAdapter.ACTION_TECH_DISCOVERED);
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[]{filter}, this.techList);*/
+        nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[]{filter}, nfcManager.techList);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        /*NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        nfcAdapter.disableForegroundDispatch(this);*/
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        nfcAdapter.disableForegroundDispatch(this);
     }
 
     protected void onStop() {
-
         super.onStop();
     }
 }

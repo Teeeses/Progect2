@@ -1,6 +1,5 @@
 package com.example.develop.progect2;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -18,9 +17,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new OneActivity();
+                return new IdentificationFragment();
             case 1:
-                return new TwoActivity();
+                return new QRFragment();
             default:
                 return null;
         }

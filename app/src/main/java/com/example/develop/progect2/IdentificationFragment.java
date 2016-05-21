@@ -2,6 +2,7 @@ package com.example.develop.progect2;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,17 @@ import android.widget.EditText;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class OneActivity extends Fragment {
+public class IdentificationFragment extends Fragment {
 
     private View view;
     private Button buttonPay;
@@ -34,7 +41,7 @@ public class OneActivity extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.identificate, container, false);
+        view = inflater.inflate(R.layout.identification, container, false);
 
         textNumber = (EditText) view.findViewById(R.id.maskedEditText);
         buttonPay = (Button) view.findViewById(R.id.buttonPay);
@@ -45,13 +52,16 @@ public class OneActivity extends Fragment {
 
                 String str = getPhoneNumber();
 
+                Call<Object> call = interf.sendRequest(("%2B7" + getPhoneNumber()), "test", "ap136013", "756379");
+
                 if(str.length() == 10) {
                     textNumber.setText("");
                     AsyncRequest asyncTask = new AsyncRequest(str);
                     asyncTask.execute();
+
                 }
                 else {
-                    DialogWindow dialog = new DialogWindow((MainActivity) getActivity());
+                    DialogWindow dialog = new DialogWindow((MainActivity) getActivity(), getResources().getLayout(R.layout.dialog_uncorrect_phone));
                     dialog.showDialog();
                 }
 
@@ -98,18 +108,6 @@ public class OneActivity extends Fragment {
         phoneResult = phoneResult.replaceAll("[^0-9]", "");
         phoneResult = phoneResult.replaceFirst("7", "");
         return phoneResult;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
     }
 
 }

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,7 +34,7 @@ public class OneActivity extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.tab_fragment_1, container, false);
+        view = inflater.inflate(R.layout.identificate, container, false);
 
         textNumber = (EditText) view.findViewById(R.id.maskedEditText);
         buttonPay = (Button) view.findViewById(R.id.buttonPay);
@@ -101,8 +100,16 @@ public class OneActivity extends Fragment {
         return phoneResult;
     }
 
-    private void showToast(String t) {
-        Toast toast = Toast.makeText(getActivity(), t, Toast.LENGTH_SHORT);
-        toast.show();
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
 }

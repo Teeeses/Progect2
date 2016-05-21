@@ -20,6 +20,4 @@ public interface ServiceAPI {
     @GET("/messages/v2/send/")
     Call<Object> send(@FieldMap Map<String, String> map);
 
-    /*@POST("/messages/v2/send/")
-    Response sendRequest(@QueryMap Map<String, String> parameters);*/
 }

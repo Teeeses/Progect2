@@ -1,14 +1,12 @@
 package com.example.develop.progect2;
 
-import android.graphics.Camera;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 
@@ -22,45 +20,51 @@ public class TwoActivity extends Fragment implements QRCodeReaderView.OnQRCodeRe
 
 
     private View view;
-    private TextView myTextView;
     private QRCodeReaderView mydecoderview;
-    private ImageView line_image;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.tab_fragment_1, container, false);
+        view = inflater.inflate(R.layout.qr_decoder, container, false);
 
 
         mydecoderview = (QRCodeReaderView) view.findViewById(R.id.qrdecoderview);
         mydecoderview.setOnQRCodeReadListener(this);
 
-        myTextView = (TextView) view.findViewById(R.id.exampleTextView);
-
-        line_image = (ImageView) view.findViewById(R.id.red_line_image);
-
         return view;
     }
 
-    // Called when a QR is decoded
-    // "text" : the text encoded in QR
-    // "points" : points where QR control points are placed
+    private void showToast(String t) {
+        Toast toast = Toast.makeText(getActivity(), t, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
     @Override
     public void onQRCodeRead(String text, PointF[] points) {
-        myTextView.setText(text);
+        showToast(text);
     }
 
 
-    // Called when your device have no camera
     @Override
     public void cameraNotFound() {
 
     }
 
-    // Called when there's no QR codes in the camera preview image
     @Override
     public void QRCodeNotFoundOnCamImage() {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mydecoderview.getCameraManager().startPreview();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mydecoderview.getCameraManager().stopPreview();
     }
 
 }

@@ -30,12 +30,13 @@ public class IdentificationFragment extends Fragment {
                 String str = getPhoneNumber();
 
                 if(str.length() == 10) {
-                    /*AsyncRequest asyncTask = new AsyncRequest();
-                    asyncTask.execute();*/
+                    Card card = new Card("", str, "yes");
+                    DialogQuestion dialog = new DialogQuestion((MainActivity) getActivity(), card);
+                    dialog.showDialog();
 
                 }
                 else {
-                    DialogWindow dialog = new DialogWindow((MainActivity) getActivity(), getResources().getLayout(R.layout.dialog_uncorrect_phone));
+                    DialogIncorrectPhone dialog = new DialogIncorrectPhone((MainActivity) getActivity());
                     dialog.showDialog();
                 }
             }

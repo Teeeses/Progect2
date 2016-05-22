@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <contacts>
+        <contact
+            tag="7B182B31"
+            phone="9201051203"
+            status="no"/>
+        <contact
+            tag="9B9B2B31"
+            phone="9639261203"
+            status="yes"/>
+        <contact
+            tag="8BB5DE2F"
+            phone="9056471378"
+            status="yes"/>
+    </contacts>
+</resources>

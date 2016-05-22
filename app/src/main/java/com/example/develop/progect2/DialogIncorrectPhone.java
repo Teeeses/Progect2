@@ -6,28 +6,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
-
-public class DialogWindowAgain {
+/**
+ * Created by develop on 22.05.2016.
+ */
+public class DialogIncorrectPhone {
 
     private MainActivity activity;
     private Dialog dialog;
     private Button buttonOk;
 
-    private Card card;
 
-    public DialogWindowAgain(MainActivity activity, Card card) {
+    public DialogIncorrectPhone(MainActivity activity) {
         this.activity = activity;
-        this.card = card;
         init();
     }
 
-
     private void init() {
         LayoutInflater inflater = LayoutInflater.from(activity);
-        View layout = inflater.inflate(R.layout.dialog_pay_again, null);
+        View layout = inflater.inflate(R.layout.dialog_uncorrect_phone, null);
         layout.setPadding(20, 20, 20, 20);
         buttonOk = (Button) layout.findViewById(R.id.buttonOk);
-
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(layout);
         dialog = builder.create();
@@ -42,10 +40,7 @@ public class DialogWindowAgain {
     View.OnClickListener clickButtonOk = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            AsyncRequest asyncTask = new AsyncRequest(card);
-            asyncTask.execute();
             dialog.dismiss();
         }
     };
-
 }

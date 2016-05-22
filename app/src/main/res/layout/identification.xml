@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:gravity="center_horizontal"
             android:text="@string/enter_number1"
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:inputType="number"
             android:gravity="center_horizontal"
             app:mask="+7(***) *** - ** - **"
@@ -42,17 +42,24 @@
             android:layout_height="wrap_content"
             android:text="@string/pay"
             android:id="@+id/buttonPay"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/attach_card"
-            android:gravity="center_vertical"
+            android:gravity="center_horizontal"
             android:layout_gravity="center_horizontal" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/card"/>
+
     </LinearLayout>
 
 </RelativeLayout>

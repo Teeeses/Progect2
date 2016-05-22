@@ -1,38 +1,34 @@
 package com.example.develop.progect2;
 
 import android.app.Dialog;
-import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
-import android.support.annotation.LayoutRes;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
 
-
-public class DialogWindow {
+public class DialogQuestion {
 
     private MainActivity activity;
     private Dialog dialog;
     private Button buttonOk;
 
-    public DialogWindow(MainActivity activity, XmlResourceParser res) {
+    private Card card;
+
+    public DialogQuestion(MainActivity activity, Card card) {
         this.activity = activity;
-        init(res);
+        this.card = card;
+        init();
     }
 
-    private void init(XmlResourceParser res) {
+    private void init() {
         LayoutInflater inflater = LayoutInflater.from(activity);
-        View layout = inflater.inflate(res, null);
+        View layout = inflater.inflate(R.layout.dialog_question, null);
         layout.setPadding(20, 20, 20, 20);
         buttonOk = (Button) layout.findViewById(R.id.buttonOk);
-
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(layout);
         dialog = builder.create();
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
         buttonOk.setOnClickListener(clickButtonOk);
     }
 
@@ -44,6 +40,8 @@ public class DialogWindow {
     View.OnClickListener clickButtonOk = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            AsyncRequest asyncTask = new AsyncRequest(card);
+            asyncTask.execute();
             dialog.dismiss();
         }
     };

@@ -10,6 +10,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 
@@ -23,8 +25,11 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout.Tab tab1;
     private TabLayout.Tab tab2;
 
+    private DialogQuestion dialog;
+
     private NfcManager nfcManager;
     private Cards cards;
+    private xmlParser parser;
 
 
     @Override
@@ -33,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         nfcManager = new NfcManager(this);
         cards = new Cards();
-
+        parser = new xmlParser(this);
         createElements();
         createTabs();
     }
@@ -86,29 +91,11 @@ public class MainActivity extends AppCompatActivity {
         if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
             try {
                 String tag = nfcManager.ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
-
-                for(int i = 0; i < cards.getArrayCards().size(); i++) {
-                    if(cards.getArrayCards().get(i).getID().equals(tag)) {
-                        if (cards.compare(tag)) {
-                            if (cards.compareTagAndLastTag(tag)) {
-                                DataRequest data = new DataRequest(cards.getArrayCards().get(i).getID(), cards.getArrayCards().get(i).getPHONE(), cards.getArrayCards().get(i).getSTATUS());
-                                DialogWindowAgain dialog = new DialogWindowAgain(this, data);
-                                dialog.showDialog();
-                            } else {
-                                DataRequest data = new DataRequest(cards.getArrayCards().get(i).getID(), cards.getArrayCards().get(i).getPHONE(), cards.getArrayCards().get(i).getSTATUS());
-                                DialogWindow dialog = new DialogWindow(this, getResources().getLayout(R.layout.dialog_cash_ok));
-                                dialog.showDialog();
-
-                                AsyncRequest asyncTask = new AsyncRequest(data);
-                                asyncTask.execute();
-
-                                cards.setLastPayment(tag);
-                            }
-                        }
-                    }
+                if(parser.getBool(tag)) {
+                    dialog = new DialogQuestion(this, parser.getCard(tag));
+                    dialog.showDialog();
                 }
 
-                showToast(tag);
             } catch (Exception e) {
                 showToast(e.toString());
             }
@@ -125,6 +112,23 @@ public class MainActivity extends AppCompatActivity {
         filter.addAction(NfcAdapter.ACTION_TECH_DISCOVERED);
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[]{filter}, nfcManager.techList);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.item_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.option) {
+            Intent i = new Intent(this, PhoneListActivity.class);
+            this.startActivity(i);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

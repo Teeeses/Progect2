@@ -10,10 +10,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 class AsyncRequest extends AsyncTask<Void, Void, Void> {
 
-    private DataRequest data = new DataRequest();
+    private Card card;
 
-    public AsyncRequest(DataRequest data) {
-        this.data = data;
+    public AsyncRequest(Card card) {
+        this.card = card;
     }
 
     @Override
@@ -21,7 +21,7 @@ class AsyncRequest extends AsyncTask<Void, Void, Void> {
         try {
             DefaultHttpClient hc = new DefaultHttpClient();
             ResponseHandler response = new BasicResponseHandler();
-            String req = ("http://api.prostor-sms.ru/messages/v2/send/?phone=%2B7" + data.getPHONE() + "&text=" + data.getSTATUS() + "&login=ap136013&password=756379");
+            String req = ("http://api.prostor-sms.ru/messages/v2/send/?phone=%2B7" + card.getPHONE() + "&text=" + card.getSTATUS() + "&login=ap136013&password=756379");
             HttpGet http = new HttpGet(req);
 
             String res = (String) hc.execute(http, response);

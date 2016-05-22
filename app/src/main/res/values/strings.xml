@@ -10,6 +10,7 @@
 
     <!-- Dialog -->
     <string name="close">Закрыть</string>
+    <string name="pay_visit">Оплатить поездку?</string>
     <string name="input_correct_phone">Неверный номер</string>
     <string name="successful_payment">Оплата прошла успешно</string>
     <string name="insufficient_cash">Недостаточно средств</string>

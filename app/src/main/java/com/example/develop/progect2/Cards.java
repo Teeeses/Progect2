@@ -1,32 +1,35 @@
 package com.example.develop.progect2;
 
-
 import java.util.ArrayList;
 
+/**
+ * Created by develop on 22.05.2016.
+ */
 public class Cards {
 
-    private ArrayList<String> TAG = new ArrayList<String>();
-    private String PHONE = "9056471378";
+    public ArrayList<Card> arrayCards = new ArrayList<>();
 
     private ArrayList<String> last_payment = new ArrayList<>();
 
     public Cards() {
-        TAG.add("8BB5DE2F");
-        TAG.add("776F9AED");
+
+        // ID - 1
+        arrayCards.add(new Card("7B182B31", "9201051203", "no"));
+        // ID - 2
+        arrayCards.add(new Card("9B9B2B31", "9639261203", "yes"));
+        // PURPLE
+        arrayCards.add(new Card("8BB5DE2F", "9056471378", "yes"));
+
     }
 
-    public boolean Compare(String tag) {
-        for(int i = 0; i < TAG.size(); i++) {
-            if(TAG.get(i).equals(tag)) {
+
+    public boolean compare(String tag) {
+        for(int i = 0; i < arrayCards.size(); i++) {
+            if(arrayCards.get(i).getID().equals(tag)) {
                 return true;
             }
         }
         return false;
-    }
-
-    public void sendSMS() {
-        AsyncRequest asyncTask = new AsyncRequest(PHONE);
-        asyncTask.execute();
     }
 
     public boolean compareTagAndLastTag(String tag) {
@@ -42,8 +45,7 @@ public class Cards {
             last_payment.add(tag);
     }
 
-    public String getPhone() {
-        return PHONE;
+    public ArrayList<Card> getArrayCards() {
+        return arrayCards;
     }
-
 }

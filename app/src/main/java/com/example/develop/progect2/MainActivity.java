@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         nfcManager = new NfcManager(this);
         cards = new Cards();
+
         createElements();
         createTabs();
     }
@@ -85,17 +86,28 @@ public class MainActivity extends AppCompatActivity {
         if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
             try {
                 String tag = nfcManager.ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
-                if (cards.Compare(tag)) {
-                    if (cards.compareTagAndLastTag(tag)) {
-                        DialogWindowAgain dialog = new DialogWindowAgain(this, cards.getPhone());
-                        dialog.showDialog();
-                    } else {
-                        //cards.sendSMS();
-                        DialogWindow dialog = new DialogWindow(this, getResources().getLayout(R.layout.dialog_cash_ok));
-                        dialog.showDialog();
-                        cards.setLastPayment(tag);
+
+                for(int i = 0; i < cards.getArrayCards().size(); i++) {
+                    if(cards.getArrayCards().get(i).getID().equals(tag)) {
+                        if (cards.compare(tag)) {
+                            if (cards.compareTagAndLastTag(tag)) {
+                                DataRequest data = new DataRequest(cards.getArrayCards().get(i).getID(), cards.getArrayCards().get(i).getPHONE(), cards.getArrayCards().get(i).getSTATUS());
+                                DialogWindowAgain dialog = new DialogWindowAgain(this, data);
+                                dialog.showDialog();
+                            } else {
+                                DataRequest data = new DataRequest(cards.getArrayCards().get(i).getID(), cards.getArrayCards().get(i).getPHONE(), cards.getArrayCards().get(i).getSTATUS());
+                                DialogWindow dialog = new DialogWindow(this, getResources().getLayout(R.layout.dialog_cash_ok));
+                                dialog.showDialog();
+
+                                AsyncRequest asyncTask = new AsyncRequest(data);
+                                asyncTask.execute();
+
+                                cards.setLastPayment(tag);
+                            }
+                        }
                     }
                 }
+
                 showToast(tag);
             } catch (Exception e) {
                 showToast(e.toString());

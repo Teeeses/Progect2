@@ -1,12 +1,6 @@
 package com.example.develop.progect2;
 
 import android.app.Dialog;
-import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
-import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +14,11 @@ public class DialogWindowAgain {
     private Dialog dialog;
     private Button buttonOk;
 
-    private String  phone;
+    private DataRequest data;
 
-    public DialogWindowAgain(MainActivity activity, String phone) {
+    public DialogWindowAgain(MainActivity activity, DataRequest data) {
         this.activity = activity;
-        this.phone = phone;
+        this.data = data;
         init();
     }
 
@@ -38,8 +32,6 @@ public class DialogWindowAgain {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(layout);
         dialog = builder.create();
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
         buttonOk.setOnClickListener(clickButtonOk);
     }
 
@@ -51,14 +43,10 @@ public class DialogWindowAgain {
     View.OnClickListener clickButtonOk = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            /*AsyncRequest asyncTask = new AsyncRequest(phone);
-            asyncTask.execute();*/
+            AsyncRequest asyncTask = new AsyncRequest(data);
+            asyncTask.execute();
             dialog.dismiss();
         }
     };
-
-    public Dialog getDialog() {
-        return dialog;
-    }
 
 }

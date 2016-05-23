@@ -23,14 +23,12 @@ import java.util.ArrayList;
  */
 public class PhoneListActivity extends ListActivity {
 
-    private Button buttonAdd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_phone);
 
-        buttonAdd = (Button) findViewById(R.id.buttonAdd);
         ArrayList<String> list = new ArrayList<>();
 
         try {
@@ -53,14 +51,6 @@ public class PhoneListActivity extends ListActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, list);
         this.setListAdapter(adapter);
-
-        buttonAdd.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(PhoneListActivity.this, AddCardActivity.class);
-                startActivity(i);
-            }
-        });
     }
 
 }

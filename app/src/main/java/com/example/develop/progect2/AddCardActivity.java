@@ -15,13 +15,11 @@ import org.xmlpull.v1.XmlPullParser;
 public class AddCardActivity  extends Activity {
 
     private String phone = "";
-    MySingleton s;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_card_layout);
-        s = (MySingleton)this.getApplication();
         final TextView textTag = (TextView) findViewById(R.id.editTag);
         final TextView textStatus = (TextView) findViewById(R.id.editStatus);
 
@@ -29,7 +27,6 @@ public class AddCardActivity  extends Activity {
         buttonAdd.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                s.getCards().addCard(textTag.getText().toString(), phone, textStatus.getText().toString());
             }
         });
     }

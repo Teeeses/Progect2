@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 
 
-public class QRFragment extends Fragment implements QRCodeReaderView.OnQRCodeReadListener {
+public class QRFragment extends Fragment /*implements QRCodeReaderView.OnQRCodeReadListener */{
 
     private View view;
     private QRCodeReaderView decoderView;
@@ -21,8 +21,8 @@ public class QRFragment extends Fragment implements QRCodeReaderView.OnQRCodeRea
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.qr_decoder, container, false);
 
-        decoderView = (QRCodeReaderView) view.findViewById(R.id.qrdecoderview);
-        decoderView.setOnQRCodeReadListener(this);
+        /*decoderView = (QRCodeReaderView) view.findViewById(R.id.qrdecoderview);
+        decoderView.setOnQRCodeReadListener(this);*/
         return view;
     }
 
@@ -33,7 +33,7 @@ public class QRFragment extends Fragment implements QRCodeReaderView.OnQRCodeRea
 
 
 
-    @Override
+    /*@Override
     public void onQRCodeRead(String text, PointF[] points) {
         if(!qrCode.equals(text)) {
             qrCode = text;
@@ -45,7 +45,7 @@ public class QRFragment extends Fragment implements QRCodeReaderView.OnQRCodeRea
     public void cameraNotFound() {}
 
     @Override
-    public void QRCodeNotFoundOnCamImage() {}
+    public void QRCodeNotFoundOnCamImage() {}*/
 
 
 
@@ -53,13 +53,19 @@ public class QRFragment extends Fragment implements QRCodeReaderView.OnQRCodeRea
     @Override
     public void onResume() {
         super.onResume();
-        decoderView.getCameraManager().startPreview();
+        /*try {
+            decoderView.getCameraManager().startPreview();
+        }catch (Exception e) {}*/
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        decoderView.getCameraManager().stopPreview();
+        /*try {
+            decoderView.getCameraManager().stopPreview();
+        } catch (Exception e) {
+
+        }*/
     }
 
 }

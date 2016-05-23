@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.github.pinball83.maskededittext.MaskedEditText;
+
 
 public class IdentificationFragment extends Fragment {
 
@@ -30,10 +32,8 @@ public class IdentificationFragment extends Fragment {
                 String str = getPhoneNumber();
 
                 if(str.length() == 10) {
-                    Card card = new Card("", str, "yes");
-                    DialogQuestion dialog = new DialogQuestion((MainActivity) getActivity(), card);
-                    dialog.showDialog();
-
+                    AsyncRequest2 asyncTask = new AsyncRequest2(str);
+                    asyncTask.execute();
                 }
                 else {
                     DialogIncorrectPhone dialog = new DialogIncorrectPhone((MainActivity) getActivity());

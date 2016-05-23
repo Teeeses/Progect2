@@ -9,7 +9,6 @@
     <uses-feature android:name="android.hardware.nfc" android:required="true" />
 
     <application
-        android:name=".MySingleton"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"

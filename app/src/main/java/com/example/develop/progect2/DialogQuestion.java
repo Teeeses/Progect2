@@ -53,6 +53,7 @@ public class DialogQuestion {
     View.OnClickListener clickButtonOk = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            showedDialog = false;
             if(card.getSTATUS().equals("yes")) {
 
                 AsyncRequest asyncTask = new AsyncRequest(card);

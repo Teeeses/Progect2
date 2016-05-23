@@ -30,10 +30,13 @@
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />
         </activity>
-        <activity android:name=".PhoneListActivity">
 
+        <activity
+            android:name=".PhoneListActivity" >
         </activity>
-
+        <activity
+            android:name="AddCardActivity" >
+        </activity>
     </application>
 
 </manifest>

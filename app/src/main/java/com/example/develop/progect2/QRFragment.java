@@ -21,8 +21,8 @@ public class QRFragment extends Fragment implements QRCodeReaderView.OnQRCodeRea
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.qr_decoder, container, false);
 
-        /*decoderView = (QRCodeReaderView) view.findViewById(R.id.qrdecoderview);
-        decoderView.setOnQRCodeReadListener(this);*/
+        decoderView = (QRCodeReaderView) view.findViewById(R.id.qrdecoderview);
+        decoderView.setOnQRCodeReadListener(this);
         return view;
     }
 
@@ -53,13 +53,13 @@ public class QRFragment extends Fragment implements QRCodeReaderView.OnQRCodeRea
     @Override
     public void onResume() {
         super.onResume();
-        //decoderView.getCameraManager().startPreview();
+        decoderView.getCameraManager().startPreview();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        //decoderView.getCameraManager().stopPreview();
+        decoderView.getCameraManager().stopPreview();
     }
 
 }

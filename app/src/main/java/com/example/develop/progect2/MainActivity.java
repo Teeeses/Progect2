@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private DialogQuestion dialog;
 
     private NfcManager nfcManager;
-    private Cards cards;
     private xmlParser parser;
 
 
@@ -37,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         nfcManager = new NfcManager(this);
-        cards = new Cards();
         parser = new xmlParser(this);
+        dialog = new DialogQuestion();
         createElements();
         createTabs();
     }
@@ -55,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
     private void createTabs() {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
-
         tab1 = tabLayout.newTab();
         tab2 = tabLayout.newTab();
         tab1.setText("Идентификация");
@@ -92,8 +90,10 @@ public class MainActivity extends AppCompatActivity {
             try {
                 String tag = nfcManager.ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
                 if(parser.getBool(tag)) {
-                    dialog = new DialogQuestion(this, parser.getCard(tag));
-                    dialog.showDialog();
+                    if(!dialog.getShowedDialog()) {
+                        dialog = new DialogQuestion(this, parser.getCard(tag));
+                        dialog.showDialog();
+                    }
                 }
 
             } catch (Exception e) {
@@ -105,13 +105,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(NfcAdapter.ACTION_TAG_DISCOVERED);
-        filter.addAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
-        filter.addAction(NfcAdapter.ACTION_TECH_DISCOVERED);
-        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[]{filter}, nfcManager.techList);
+        try {
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(NfcAdapter.ACTION_TAG_DISCOVERED);
+            filter.addAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
+            filter.addAction(NfcAdapter.ACTION_TECH_DISCOVERED);
+            NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+            nfcAdapter.enableForegroundDispatch(this, pendingIntent, new IntentFilter[]{filter}, nfcManager.techList);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
     }
 
     @Override
@@ -134,8 +139,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        nfcAdapter.disableForegroundDispatch(this);
+        try {
+            NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+            nfcAdapter.disableForegroundDispatch(this);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     protected void onStop() {

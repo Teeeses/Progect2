@@ -29,6 +29,8 @@ public class DialogIncorrectPhone {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setView(layout);
         dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
         buttonOk.setOnClickListener(clickButtonOk);
     }
 

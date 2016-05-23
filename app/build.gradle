@@ -32,4 +32,5 @@ dependencies {
     compile 'org.apache.karaf.http:http:3.0.6'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'com.dlazaro66.qrcodereaderview:qrcodereaderview:1.0.0'
+    compile 'com.google.code.gson:gson:2.6.2'
 }
